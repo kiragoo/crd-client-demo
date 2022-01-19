@@ -1,44 +1,25 @@
 package main
 
 import (
-	"flag"
 	"k8s-client-demo/demo"
-	"os"
-	"path/filepath"
+	"k8s-client-demo/pkg/util"
 
 	"github.com/emqx/emqx-operator/api/v1beta1"
-	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/kubectl/pkg/scheme"
 )
-
-func homeDir() string {
-	if h := os.Getenv("HOME"); h != "" {
-		return h
-	}
-	return os.Getenv("USERPROFILE")
-}
 
 func init() {
 	v1beta1.AddToScheme(scheme.Scheme)
 }
 
 func main() {
-	var kubeconfig *string
 
-	if home := homeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-	} else {
-		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
-	}
-	flag.Parse()
+	config := util.NewRestConfigFromToken(
+		"https://127.0.0.1:64308",
+		"eyJhbGciOiJSUzI1NiIsImtpZCI6InU1UWhJZE43S2dINmp3YjVpX1JUVkxwc1FOZVJhOGgxNE0wc1BGb3Z3cGsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6InJvb3QtdG9rZW4tNXE3NmMiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoicm9vdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjcyNjhmNTg1LTRkMGItNDJkMC1iZDVjLTEwNWU5MjMxYWE0MCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OnJvb3QifQ.dmX5Rf6t22uHdkIEn0Cnr-psFA_V7yZ4BYPi830lsULZRVAa_6N2TRuAuuJ65nmm4Hg79u3umDRkz49ja8q7m6h8q_WBFYR2SAZoX6sHkmGLSwA4mSQDCtqKaqrbp-Ee0jx_B2EwitbBsuJvKiAOtqiVzHVWShXMaWoKX7aKD_DFg5riHYr6L7nGxj6AKwU4cS0byPRSTkCnUVYsh6lNLXjECHaF8VLsHDSm0Jkqfw_KndHf4JrEdxUEqAGVGaLuuP6LvRudsH89QCm9q5BmGhHPPGoNu03BN_tDGQrnKyUmlWydpuc6zbv4VJPZkEGgHYiEY6deb_3pT5Ck1ynuEg",
+	)
+	demo.DemoForNamespace(config)
 
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
-	if err != nil {
-		panic(err.Error())
-	}
-
-	// demo.DemoForNamespace(config)
-
-	demo.DemoForEmqxBroker(config, "default")
+	// demo.DemoForEmqxBroker(config, "default")
 
 }
