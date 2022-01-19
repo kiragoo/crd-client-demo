@@ -9,6 +9,9 @@ import "k8s.io/client-go/rest"
 // the token get in secret should be decode by base64
 // Usage:
 //      kubectl get secret xxx -o jsonpath={.data.token}|base64 -d
+// get the url by kubectl
+// Usage:
+// 		kubectl cluster-info
 func NewRestConfigFromToken(url, token string) *rest.Config {
 	return &rest.Config{
 		Host: url,
