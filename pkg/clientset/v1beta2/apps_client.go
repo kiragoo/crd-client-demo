@@ -1,4 +1,4 @@
-package v1beta1
+package v1beta2
 
 import (
 	"k8s-client-demo/pkg/constants"
@@ -18,15 +18,15 @@ type EmqxBrokerV1Beta1Interface interface {
 	EmqxBrokersGetter
 }
 
-type EmqxBrokerV1Beta1Client struct {
+type EmqxBrokerV1Beta2Client struct {
 	restClient rest.Interface
 }
 
-func (c *EmqxBrokerV1Beta1Client) EmqxBrokers(namespace string) EmqxBrokerInterface {
+func (c *EmqxBrokerV1Beta2Client) EmqxBrokers(namespace string) EmqxBrokerInterface {
 	return NewEmqxBrokers(c, namespace)
 }
 
-func (c *EmqxBrokerV1Beta1Client) RESTClient() rest.Interface {
+func (c *EmqxBrokerV1Beta2Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}
@@ -36,7 +36,7 @@ func (c *EmqxBrokerV1Beta1Client) RESTClient() rest.Interface {
 // NewForConfig creates a new StorageV1alpha1Client for the given config.
 // NewForConfig is equivalent to NewForConfigAndClient(c, httpClient),
 // where httpClient was generated with rest.HTTPClientFor(c).
-func NewForConfig(c *rest.Config) (*EmqxBrokerV1Beta1Client, error) {
+func NewForConfig(c *rest.Config) (*EmqxBrokerV1Beta2Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func NewForConfig(c *rest.Config) (*EmqxBrokerV1Beta1Client, error) {
 
 // NewForConfigAndClient creates a new StorageV1alpha1Client for the given config and http client.
 // Note the http client provided takes precedence over the configured transport values.
-func NewForConfigAndClient(c *rest.Config, h *http.Client) (*EmqxBrokerV1Beta1Client, error) {
+func NewForConfigAndClient(c *rest.Config, h *http.Client) (*EmqxBrokerV1Beta2Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -59,12 +59,12 @@ func NewForConfigAndClient(c *rest.Config, h *http.Client) (*EmqxBrokerV1Beta1Cl
 	if err != nil {
 		return nil, err
 	}
-	return &EmqxBrokerV1Beta1Client{client}, nil
+	return &EmqxBrokerV1Beta2Client{client}, nil
 }
 
 // NewForConfigOrDie creates a new StorageV1alpha1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *EmqxBrokerV1Beta1Client {
+func NewForConfigOrDie(c *rest.Config) *EmqxBrokerV1Beta2Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -73,8 +73,8 @@ func NewForConfigOrDie(c *rest.Config) *EmqxBrokerV1Beta1Client {
 }
 
 // New creates a new StorageV1alpha1Client for the given RESTClient.
-func New(c rest.Interface) *EmqxBrokerV1Beta1Client {
-	return &EmqxBrokerV1Beta1Client{c}
+func New(c rest.Interface) *EmqxBrokerV1Beta2Client {
+	return &EmqxBrokerV1Beta2Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {

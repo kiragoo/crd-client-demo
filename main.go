@@ -4,12 +4,12 @@ import (
 	"k8s-client-demo/demo"
 	"k8s-client-demo/pkg/util"
 
-	"github.com/emqx/emqx-operator/api/v1beta1"
+	"github.com/emqx/emqx-operator/apis/apps/v1beta2"
 	"k8s.io/kubectl/pkg/scheme"
 )
 
 func init() {
-	v1beta1.AddToScheme(scheme.Scheme)
+	v1beta2.AddToScheme(scheme.Scheme)
 }
 
 func main() {

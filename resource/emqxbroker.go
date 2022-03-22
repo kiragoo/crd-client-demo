@@ -1,16 +1,16 @@
 package resource
 
 import (
-	"github.com/emqx/emqx-operator/api/v1beta1"
+	"github.com/emqx/emqx-operator/apis/apps/v1beta2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func GenerateEmqxbroker(ns string) *v1beta1.EmqxBroker {
-	return &v1beta1.EmqxBroker{
+func GenerateEmqxbroker(ns string) *v1beta2.EmqxBroker {
+	return &v1beta2.EmqxBroker{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "emqx",
 		},
-		Spec: v1beta1.EmqxBrokerSpec{
+		Spec: v1beta2.EmqxBrokerSpec{
 			ServiceAccountName: "emqx",
 			Image:              "emqx/emqx:4.3.10",
 			Replicas:           Int32Ptr(3),

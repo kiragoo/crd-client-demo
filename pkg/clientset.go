@@ -2,7 +2,7 @@ package pkg
 
 import (
 	"fmt"
-	"k8s-client-demo/pkg/clientset/v1beta1"
+	v1beta2 "k8s-client-demo/pkg/clientset/v1beta2"
 	"net/http"
 
 	"k8s.io/client-go/rest"
@@ -10,15 +10,15 @@ import (
 )
 
 type Interface interface {
-	EmqxBrokerV1Beta1Interface() v1beta1.EmqxBrokerInterface
+	EmqxBrokerV1Beta2Interface() v1beta2.EmqxBrokerInterface
 }
 
 type Clientset struct {
-	emqxbrokerv1beta1 *v1beta1.EmqxBrokerV1Beta1Client
+	emqxbrokerv1beta2 *v1beta2.EmqxBrokerV1Beta1Client
 }
 
-func (c *Clientset) EmqxBrokersV1Beta1() v1beta1.EmqxBrokerV1Beta1Interface {
-	return c.emqxbrokerv1beta1
+func (c *Clientset) EmqxBrokersV1Beta2() v1beta2.EmqxBrokerV1Beta1Interface {
+	return c.emqxbrokerv1beta2
 }
 
 func NewForConfig(c *rest.Config) (*Clientset, error) {
@@ -44,7 +44,7 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 
 	var cs Clientset
 	var err error
-	cs.emqxbrokerv1beta1, err = v1beta1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	cs.emqxbrokerv1beta2, err = v1beta2.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
 	}
