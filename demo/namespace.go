@@ -44,6 +44,7 @@ func DemoForNamespace(config *rest.Config) {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Printf("found namespace list :%+v\n", nsForList)
 
 	// Delete namesapce by name: test

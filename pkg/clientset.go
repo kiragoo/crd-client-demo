@@ -14,7 +14,7 @@ type Interface interface {
 }
 
 type Clientset struct {
-	emqxbrokerv1beta2 *v1beta2.EmqxBrokerV1Beta1Client
+	emqxbrokerv1beta2 *v1beta2.EmqxBrokerV1Beta2Client
 }
 
 func (c *Clientset) EmqxBrokersV1Beta2() v1beta2.EmqxBrokerV1Beta1Interface {

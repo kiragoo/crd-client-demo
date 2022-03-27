@@ -17,7 +17,7 @@ func DemoForEmqxBroker(config *rest.Config, ns string) {
 		panic(err)
 	}
 
-	emqxbrokerClient := clientset.EmqxBrokersV1Beta1().EmqxBrokers(ns)
+	emqxbrokerClient := clientset.EmqxBrokersV1Beta2().EmqxBrokers(ns)
 
 	// Create emqxbroker instance
 	Prompt()
